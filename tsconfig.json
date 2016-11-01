@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "outDir": "./javascript"
+    },
+    "include": [
+        "typescript/*.ts"
+    ],
+    "exclude": [
+        "javascript/*.js"
+    ]
+}

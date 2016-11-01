@@ -1,0 +1,27 @@
+$modal-width: 80%
+
+.modal
+    position: fixed
+    width: $modal-width
+    padding: 20px
+    background: white
+    border: 3px dashed black
+    top: 50%
+    left: (100% - $modal-width) / 2
+    text-align: center
+    box-sizing: border-box
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.3)
+    transform: translateY(-100vh)
+    transition: 0.4s transform
+    z-index: 10000
+
+    &.show
+        transform: translateY(-50%)
+
+    > span
+        display: block
+
+        &.text
+            font-weight: bold
+            font-size: 2em
+            text-transform: uppercase

@@ -1,0 +1,82 @@
+<html>
+
+<head>
+	<title>Splittr</title>
+
+	<link rel="stylesheet" href="libraries/simplepaint.css">
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/button.css">
+	<link rel="stylesheet" href="css/modal.css">
+	<link rel="stylesheet" href="css/help.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body onload="splittr.initialise(this)">
+
+    <div class="slider ui-slider">
+        
+        <div class="slide home">
+            <button class="ui-start" type="button">It's go time</button>
+            <h1>Splittr</h1>
+            <button class="secondary ui-help" type="button">How to Play</button>
+        </div>
+
+        <div class="slide canvas ui-first-drawing">
+            <header>
+                <div class="word">
+                    <h2>happy</h2>
+                </div>
+                <div class="action">
+                    <span class="ui-finished-drawing">done</span>
+                    <span class="timer ui-timer">01:23</span>
+                </div>
+            </header>
+            <section class="ui-canvas-container"></section>
+        </div>
+        
+        <div class="slide canvas ui-second-drawing">
+            <header>
+                <div class="word">
+                    <h2>sloth</h2>
+                </div>
+                <div class="action">
+                    <span class="ui-finished-drawing">done</span>
+                    <span class="timer ui-timer">01:23</span>
+                </div>
+            </header>
+            <section class="ui-canvas-container"></section>
+        </div>
+
+        <div class="slide guess ui-guess">
+            <div class="images">
+                <div class="image ui-first-image"></div>
+                <div class="image ui-second-image"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal ui-modal">
+        <span class="title ui-title"></span>
+        <span class="text ui-text"></span>
+    </div>
+	
+    <div class="help ui-help-popup">
+        <span class="close ui-close-help-popup">close</span>
+        <p>HOW TO PLAY:</p>
+    </div>
+
+
+</body>
+
+<script src="libraries/jquery-3.1.1.min.js"></script>
+<script src="libraries/easeljs-0.8.2.min.js"></script>
+<script src="libraries/simplepaint.js"></script>
+
+<script src="javascript/init.js"></script>
+<script src="javascript/timer.js"></script>
+
+</html>
