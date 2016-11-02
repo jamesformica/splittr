@@ -30,6 +30,7 @@ p, span
     letter-spacing: 1px
 
 .slider
+    position: relative
     width: 100%
     max-width: 600px
     margin: 0 auto
@@ -38,7 +39,7 @@ p, span
     > .slide
         height: 100vh
 
-        &.home, &.guess
+        &.home
             display: flex
             flex-direction: column
             justify-content: center
@@ -82,14 +83,6 @@ p, span
             > section
                 flex-grow: 1
                 background-color: white
-
-        &.guess
-            > .images
-                display: flex
-                flex-direction: row
-
-                .image
-                    height: 150px
 
 @keyframes wiggle
     0%

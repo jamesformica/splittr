@@ -31,6 +31,7 @@ module splittr {
         private $helpClose: JQuery;
         private $startBtn: JQuery;
         private $helpBtn: JQuery;
+        private $images: JQuery;
 
         private firstDrawingElements: ICanvasElements;
         private secondDrawingElements: ICanvasElements;
@@ -48,6 +49,7 @@ module splittr {
             this.$startBtn = this.$slider.find(".ui-start");
             this.$helpBtn = this.$slider.find(".ui-help");
             this.$helpClose = this.$help.find(".ui-close-help-popup");
+            this.$images = this.$slider.find(".ui-guess-image");
 
             let $firstDrawingContainer = $(".ui-first-drawing");
             this.firstDrawingElements = this.findCanvasSlideElements($firstDrawingContainer);
@@ -78,6 +80,10 @@ module splittr {
 
             this.secondDrawingElements.$done.click(() => {
                 this.goToGuess();
+            });
+
+            this.$images.click((e) => {
+                $(e.currentTarget).toggleClass("fullscreen");
             });
         }
 
@@ -139,9 +145,8 @@ module splittr {
         }
 
         private displayImages(): void {
-            let $guess = $(".ui-guess");
-            let $firstImage = $guess.find(".ui-first-image");
-            let $secondImage = $guess.find(".ui-second-image");
+            let $firstImage = this.$images.filter(".first");
+            let $secondImage = this.$images.filter(".second");
 
             $firstImage.css("background-image", "url('" + this.firstDrawingElements.image + "')");
             $secondImage.css("background-image", "url('" + this.secondDrawingElements.image + "')");

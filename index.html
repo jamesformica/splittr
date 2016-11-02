@@ -5,6 +5,7 @@
 
 	<link rel="stylesheet" href="libraries/simplepaint.css">
 	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/guess.css">
 	<link rel="stylesheet" href="css/button.css">
 	<link rel="stylesheet" href="css/modal.css">
 	<link rel="stylesheet" href="css/help.css">
@@ -17,7 +18,14 @@
 <body onload="splittr.initialise(this)">
 
     <div class="slider ui-slider">
-        
+
+         <div class="slide guess ui-guess">
+            <div class="images">
+                <div class="image first ui-guess-image"></div>
+                <div class="image second ui-guess-image"></div>
+            </div>
+        </div>
+
         <div class="slide home">
             <button class="ui-start" type="button">It's go time</button>
             <h1>Splittr</h1>
@@ -50,12 +58,7 @@
             <section class="ui-canvas-container"></section>
         </div>
 
-        <div class="slide guess ui-guess">
-            <div class="images">
-                <div class="image ui-first-image"></div>
-                <div class="image ui-second-image"></div>
-            </div>
-        </div>
+       
 
     </div>
 
