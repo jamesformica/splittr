@@ -32,8 +32,9 @@ module splittr {
         private $startBtn: JQuery;
         private $helpBtn: JQuery;
         private $images: JQuery;
-        private $submitGuess: JQuery;
+        private $guessText: JQuery;
         private $txtGuess: JQuery;
+        private $submitGuess: JQuery;
         private $playAgain: JQuery;
 
         private firstDrawingElements: ICanvasElements;
@@ -54,6 +55,7 @@ module splittr {
             this.$helpClose = this.$help.find(".ui-close-help-popup");
             this.$images = this.$slider.find(".ui-guess-image");
             this.$submitGuess = this.$slider.find(".ui-submit-guess");
+            this.$guessText = this.$slider.find(".ui-guess-text");
             this.$txtGuess = this.$slider.find(".ui-txt-guess");
             this.$playAgain = this.$slider.find(".ui-reset");
 
@@ -135,6 +137,12 @@ module splittr {
             this.secondDrawingElements.image = this.secondDrawingElements.CanvasManager.getImage();
 
             this.displayImages();
+            this.setGuessText();
+            this.$submitGuess.removeClass("hidden");
+            this.$txtGuess.removeClass("hidden");
+            this.$playAgain.addClass("hidden");
+            this.$txtGuess.val("");
+
             this.slideToNext();
         }
 
@@ -170,17 +178,21 @@ module splittr {
             $secondImage.css("background-image", "url('" + this.secondDrawingElements.image + "')");
         }
 
+        private setGuessText(): void {
+            this.$guessText.text("Based on the above lovely drawings, whats the full word?");
+        }
+
         private checkGuess(): void {
             let guessVal = (<string>this.$txtGuess.val().toString()).toLowerCase().trim();
 
             if (guessVal != undefined && guessVal.length > 0 && this.words != undefined) {
                 let matchWord = (this.words[0] + this.words[1]).toLowerCase().trim();
-                let $guessText = this.$slider.find(".ui-guess-text");
+
 
                 if (guessVal === matchWord) {
-                    $guessText.text("Congratulations! " + guessVal.toUpperCase() + " was the correct word!");
+                    this.$guessText.text("Congratulations! " + guessVal.toUpperCase() + " was the correct word!");
                 } else {
-                    $guessText.text("Bummer! You guessed " + guessVal.toUpperCase() + ", but the correct word was " + matchWord.toUpperCase());
+                    this.$guessText.text("Bummer! You guessed " + guessVal.toUpperCase() + ", but the correct word was " + matchWord.toUpperCase());
                 }
 
                 this.$submitGuess.addClass("hidden");
