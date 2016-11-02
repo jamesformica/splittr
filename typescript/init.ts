@@ -32,6 +32,9 @@ module splittr {
         private $startBtn: JQuery;
         private $helpBtn: JQuery;
         private $images: JQuery;
+        private $submitGuess: JQuery;
+        private $txtGuess: JQuery;
+        private $playAgain: JQuery;
 
         private firstDrawingElements: ICanvasElements;
         private secondDrawingElements: ICanvasElements;
@@ -50,6 +53,9 @@ module splittr {
             this.$helpBtn = this.$slider.find(".ui-help");
             this.$helpClose = this.$help.find(".ui-close-help-popup");
             this.$images = this.$slider.find(".ui-guess-image");
+            this.$submitGuess = this.$slider.find(".ui-submit-guess");
+            this.$txtGuess = this.$slider.find(".ui-txt-guess");
+            this.$playAgain = this.$slider.find(".ui-reset");
 
             let $firstDrawingContainer = $(".ui-first-drawing");
             this.firstDrawingElements = this.findCanvasSlideElements($firstDrawingContainer);
@@ -85,6 +91,18 @@ module splittr {
             this.$images.click((e) => {
                 $(e.currentTarget).toggleClass("fullscreen");
             });
+
+            this.$submitGuess.click(() => {
+                this.checkGuess();
+            });
+
+            this.$playAgain.click(() => {
+                this.slideCounter = -1;
+                this.slideToNext();
+                this.words = undefined;
+                this.firstDrawingElements.CanvasManager.clearCanvas();
+                this.secondDrawingElements.CanvasManager.clearCanvas();
+            });
         }
 
         private goToFirstDrawing(): void {
@@ -104,7 +122,7 @@ module splittr {
             this.secondDrawingElements.$word.text(this.words[1]);
 
             this.firstDrawingElements.image = this.firstDrawingElements.CanvasManager.getImage();
-            
+
             this.firstTimer.cancelTimer();
             this.secondTimer = new splittr.timer.Timer(this.secondDrawingElements.$timer, timerMinutes, timerSeconds);
             this.secondTimer.timesUp().done(() => {
@@ -150,6 +168,25 @@ module splittr {
 
             $firstImage.css("background-image", "url('" + this.firstDrawingElements.image + "')");
             $secondImage.css("background-image", "url('" + this.secondDrawingElements.image + "')");
+        }
+
+        private checkGuess(): void {
+            let guessVal = (<string>this.$txtGuess.val().toString()).toLowerCase().trim();
+
+            if (guessVal != undefined && guessVal.length > 0 && this.words != undefined) {
+                let matchWord = (this.words[0] + this.words[1]).toLowerCase().trim();
+                let $guessText = this.$slider.find(".ui-guess-text");
+
+                if (guessVal === matchWord) {
+                    $guessText.text("Congratulations! " + guessVal.toUpperCase() + " was the correct word!");
+                } else {
+                    $guessText.text("Bummer! You guessed " + guessVal.toUpperCase() + ", but the correct word was " + matchWord.toUpperCase());
+                }
+
+                this.$submitGuess.addClass("hidden");
+                this.$txtGuess.addClass("hidden");
+                this.$playAgain.removeClass("hidden");
+            }
         }
 
         private showModal(title: string, text: string): void {
