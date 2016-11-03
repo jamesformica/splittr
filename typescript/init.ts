@@ -302,7 +302,13 @@ module splittr {
                 ["star", "fish"],
                 ["fish", "hook"],
                 ["short", "bread"],
-                
+                ["tool", "box"],
+                ["ear", "drum"],
+                ["jelly", "bean"],
+                ["egg", "shell"],
+                ["hair", "cut"],
+                ["ear", "ring"],
+                ["cat", "walk"]
             ];
 
             return words[Math.floor(Math.random() * words.length)];
