@@ -19,6 +19,15 @@ module splittr {
 
     export function initialise(): void {
         let splittrManager = new SplittrManager();
+
+        $.ajax({
+            url: "https://fonts.googleapis.com/css?family=Comfortaa",
+            type: "GET"
+        }).done((result) => {
+            let style = document.createElement("style");
+            style.innerHTML = result;
+            document.head.appendChild(style);
+        });
     }
 
     export class SplittrManager {
@@ -215,10 +224,85 @@ module splittr {
         private selectWord(): string[] {
             let words: string[][] = [
                 ["pea", "nut"],
-                ["peanut", "butter"],
                 ["arm", "pit"],
                 ["basket", "ball"],
-                ["pan", "cake"]
+                ["pan", "cake"],
+                ["fire", "work"],
+                ["base", "ball"],
+                ["sun", "flower"],
+                ["moon", "light"],
+                ["foot", "ball"],
+                ["rail", "road"],
+                ["skate", "board"],
+                ["butter", "fly"],
+                ["fire", "fly"],
+                ["foot", "print"],
+                ["back", "bone"],
+                ["eye", "ball"],
+                ["key", "board"],
+                ["sand", "stone"],
+                ["lime", "stone"],
+                ["river", "bank"],
+                ["honey", "moon"],
+                ["tooth", "pick"],
+                ["pop", "corn"],
+                ["air", "plane"],
+                ["ham", "burger"],
+                ["fork", "lift"],
+                ["honey", "comb"],
+                ["key", "hole"],
+                ["black", "board"],
+                ["white", "board"],
+                ["black", "berry"],
+                ["friend", "ship"],
+                ["day", "time"],
+                ["fire", "fighter"],
+                ["bed", "room"],
+                ["bath", "room"],
+                ["car", "pool"],
+                ["ball", "room"],
+                ["brain", "child"],
+                ["dead", "line"],
+                ["rain", "bow"],
+                ["bow", "tie"],
+                ["water", "melon"],
+                ["day", "dream"],
+                ["day", "light"],
+                ["up", "grade"],
+                ["news", "paper"],
+                ["tea", "cup"],
+                ["tea", "pot"],
+                ["cart", "wheel"],
+                ["fish", "net"],
+                ["tape", "worm"],
+                ["cave", "man"],
+                ["note", "book"],
+                ["air", "line"],
+                ["cross", "bow"],
+                ["earth", "worm"],
+                ["eye", "lid"],
+                ["rain", "drop"],
+                ["cheese", "burger"],
+                ["hand", "gun"],
+                ["head", "light"],
+                ["can", "can"],
+                ["cheese", "cake"],
+                ["thunder", "bolt"],
+                ["brain", "wash"],
+                ["pony", "tail"],
+                ["moth", "ball"],
+                ["candle", "stick"],
+                ["space", "walk"],
+                ["horse", "fly"],
+                ["table", "spoon"],
+                ["stop", "light"],
+                ["fish", "bowl"],
+                ["tail", "gate"],
+                ["tea", "spoon"],
+                ["star", "fish"],
+                ["fish", "hook"],
+                ["short", "bread"],
+                
             ];
 
             return words[Math.floor(Math.random() * words.length)];

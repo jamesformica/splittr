@@ -1,3 +1,5 @@
+@import "vars"
+
 body
     background: url('../images/geometry.png')
     background-position: center
@@ -5,7 +7,7 @@ body
     margin: 0
     padding: 0
     overflow: hidden
-    font-family: 'Comfortaa', cursive
+    font-family: $font-family
     font-size: 10px
     color: black
 
@@ -15,8 +17,8 @@ h1
     letter-spacing: 20px
     margin-left: 10px
     font-size: 4em
-    border-top: 1px solid crimson
-    border-bottom: 1px solid darkturquoise
+    border-top: 1px solid $primary-colour
+    border-bottom: 1px solid $secondary-colour
     padding: 20px
 
 h2
@@ -33,70 +35,3 @@ p, span
 
 .hidden
     display: none !important
-
-.slider
-    position: relative
-    width: 100%
-    max-width: 600px
-    margin: 0 auto
-    transition: transform 0.4s
-
-    > .slide
-        height: 100vh
-
-        &.home
-            display: flex
-            flex-direction: column
-            justify-content: center
-            align-items: center
-
-        &.canvas
-            display: flex
-            flex-direction: column
-            justify-content: flex-start
-
-            > header
-                display: flex
-                flex-direction: row
-                align-items: center
-                padding: 10px
-                border-bottom: 1px solid black
-                flex-grow: 0
-
-                > .word
-                    flex-grow: 1
-                    text-align: center
-                    animation: wiggle 10s infinite
-
-                > .action
-                    color: darkturquoise
-                    text-transform: uppercase
-                    display: flex
-                    flex-direction: column
-                    flex-grow: 0
-                    text-align: right
-
-                    span:not(.timer)
-                        text-decoration: underline
-                        font-weight: bold
-
-                    > .timer
-                        margin-top: 5px
-                        color: crimson
-                        font-family: monospace
-
-            > section
-                flex-grow: 1
-                background-color: white
-
-@keyframes wiggle
-    0%
-        transform: rotate(0deg)
-    93%
-        transform: rotate(0deg)
-    94%
-        transform: rotate(15deg) scale(1.15)
-    97%
-        transform: rotate(-10deg) scale(1.15)
-    100%
-        transform: rotate(0deg) scale(1)
