@@ -80,7 +80,7 @@ module splittr {
         private attachEvents(): void {
             this.$startBtn.click(() => {
                 this.words = this.selectWord();
-                this.goToFirstDrawing();
+                this.goToSplash(this.goToFirstDrawing);
             });
 
             this.$helpBtn.click(() => {
@@ -92,11 +92,13 @@ module splittr {
             });
 
             this.firstDrawingElements.$done.click(() => {
-                this.goToSecondDrawing();
+                this.firstTimer.cancelTimer();
+                this.goToSplash(this.goToSecondDrawing);
             });
 
             this.secondDrawingElements.$done.click(() => {
-                this.goToGuess();
+                this.secondTimer.cancelTimer();
+                this.goToSplash(this.goToGuess);
             });
 
             this.$images.click((e) => {
@@ -116,6 +118,14 @@ module splittr {
             });
         }
 
+        private goToSplash(nextSlide: Function): void {
+            this.slideToNext();
+
+            setTimeout(() => {
+                nextSlide.call(this);
+            }, 2500);
+        }
+
         private goToFirstDrawing(): void {
             this.slideToNext();
             this.showModal("Your word is:", this.words[0]);
@@ -123,7 +133,7 @@ module splittr {
 
             this.firstTimer = new splittr.timer.Timer(this.firstDrawingElements.$timer, timerMinutes, timerSeconds);
             this.firstTimer.timesUp().done(() => {
-                this.goToSecondDrawing();
+                this.goToSplash(this.goToSecondDrawing);
             });
         }
 
@@ -134,15 +144,13 @@ module splittr {
 
             this.firstDrawingElements.image = this.firstDrawingElements.CanvasManager.getImage();
 
-            this.firstTimer.cancelTimer();
             this.secondTimer = new splittr.timer.Timer(this.secondDrawingElements.$timer, timerMinutes, timerSeconds);
             this.secondTimer.timesUp().done(() => {
-                this.goToGuess();
+                this.goToSplash(this.goToGuess);
             });
         }
 
         private goToGuess(): void {
-            this.secondTimer.cancelTimer();
             this.secondDrawingElements.image = this.secondDrawingElements.CanvasManager.getImage();
 
             this.displayImages();
