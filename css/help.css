@@ -1,0 +1,26 @@
+.help {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 20px;
+  transition: 0.4s;
+  transform: translateY(-110%);
+  overflow: auto;
+  text-align: justify; }
+  .help.show {
+    transform: translateY(0); }
+  .help > .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: darkturquoise;
+    text-decoration: underline;
+    cursor: pointer;
+    text-transform: uppercase; }
+
+/*# sourceMappingURL=help.css.map */

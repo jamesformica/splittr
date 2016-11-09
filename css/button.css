@@ -1,0 +1,27 @@
+button {
+  padding: 20px 40px;
+  background: white;
+  border: 1px solid black;
+  outline: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 1.6em;
+  color: crimson;
+  border-radius: 2px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  font-family: "Comfortaa", sans-serif; }
+  button.secondary {
+    color: darkturquoise; }
+  button:active {
+    transform: scale(1.1); }
+
+input[type="text"] {
+  margin: 20px 0;
+  padding: 10px 20px;
+  width: 70%;
+  border: 1px solid black;
+  text-transform: uppercase;
+  border-radius: 2px; }
+
+/*# sourceMappingURL=button.css.map */
