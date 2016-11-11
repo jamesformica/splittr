@@ -24,11 +24,23 @@ var simplepaint;
         CanvasManager.prototype.attachEvents = function () {
             var _this = this;
             var $brush = this.$menu.find(".ui-brush");
+            var $erase = this.$menu.find(".ui-eraser");
             var $fill = this.$menu.find(".ui-fill");
             var $stroke = this.$menu.find(".ui-show-stroke");
             $brush.click(function () {
+                _this.drawingManager.toggleEraseMode(false);
                 _this.drawingManager.toggleFillMode(false);
                 _this.selectTool($brush);
+            });
+            $erase.click(function () {
+                _this.drawingManager.toggleEraseMode(true);
+                _this.drawingManager.toggleFillMode(false);
+                _this.selectTool($erase);
+            });
+            $fill.click(function () {
+                _this.drawingManager.toggleEraseMode(false);
+                _this.drawingManager.toggleFillMode(true);
+                _this.selectTool($fill);
             });
             $stroke.click(function () {
                 _this.$colourContainer.removeClass("open");
@@ -37,10 +49,6 @@ var simplepaint;
             this.$menu.find(".ui-show-colour").click(function () {
                 _this.$strokeContainer.removeClass("open");
                 _this.$colourContainer.toggleClass("open");
-            });
-            $fill.click(function () {
-                _this.drawingManager.toggleFillMode(true);
-                _this.selectTool($fill);
             });
             this.$menu.find(".ui-clear").click(function () {
                 _this.drawingManager.startAgain();
@@ -132,10 +140,11 @@ var simplepaint;
         CanvasManager.prototype.buildSimplePaint = function () {
             var $b_simplePaint = $("<div class=\"simplepaint\"></div>");
             var $b_menu = $("<div class=\"menu\"></div>");
-            var $b_strokeOption = $("<i class=\"icon-brush\" title=\"Stroke\"></i>");
-            var $b_colourOption = $("<i class=\"colour\" title=\"Colour\"></i>");
-            var $b_sizeOption = $("<i class=\"icon-radio-unchecked\" title=\"Colour\"></i>");
+            var $b_brushOption = $("<i class=\"icon-brush\" title=\"Brush\"></i>");
+            var $b_eraser = $("<i class=\"icon-eraser\" title=\"eraser\"></i>");
             var $b_fill = $("<i class=\"icon-bucket\" title=\"Fill\"></i>");
+            var $b_colourOption = $("<i class=\"colour\" title=\"Colour\"></i>");
+            var $b_sizeOption = $("<i class=\"icon-radio-unchecked\" title=\"Stroke\"></i>");
             var $b_startAgainOption = $("<i class=\"icon-bin bottom\" title=\"Start Again\"></i>");
             var $b_strokeContainer = $("<div class=\"slider\"></div>");
             var $b_strokeContainerTitle = $("<p><i class=\"icon-brush\"></i>Select a brush size</p>");
@@ -149,7 +158,10 @@ var simplepaint;
             this.$strokeContainer = $b_strokeContainer.appendTo($simplePaintContainer);
             this.$colourContainer = $b_colourContainer.appendTo($simplePaintContainer);
             this.$canvas = $b_canvas.appendTo($simplePaintContainer);
-            var menuItems = [this.wrapMenuItem($b_strokeOption, "ui-brush selected")];
+            var menuItems = [
+                this.wrapMenuItem($b_brushOption, "ui-brush selected"),
+                this.wrapMenuItem($b_eraser, "ui-eraser")
+            ];
             if (this.canFill()) {
                 menuItems.push(this.wrapMenuItem($b_fill, "ui-fill"));
             }
@@ -339,6 +351,7 @@ var simplepaint;
             this.index = 0;
             this.stroke = 0;
             this.isFillMode = false;
+            this.isErasing = false;
             //check to see if we are running in a browser with touch support
             this.stage = new createjs.Stage(canvas);
             this.stage.autoClear = false;
@@ -358,13 +371,10 @@ var simplepaint;
             this.color = colour;
         };
         DrawingManager.prototype.toggleFillMode = function (isFillMode) {
-            if (isFillMode !== undefined) {
-                this.isFillMode = isFillMode;
-            }
-            else {
-                this.isFillMode = !this.isFillMode;
-            }
-            return this.isFillMode;
+            this.isFillMode = isFillMode;
+        };
+        DrawingManager.prototype.toggleEraseMode = function (isErasing) {
+            this.isErasing = isErasing;
         };
         DrawingManager.prototype.startAgain = function () {
             this.stage.clear();
@@ -409,6 +419,7 @@ var simplepaint;
                 .beginStroke(this.color)
                 .beginFill(this.color)
                 .drawCircle(this.oldPoint.x, this.oldPoint.y, this.stroke / 2);
+            this.shapeLayer.compositeOperation = this.isErasing ? "destination-out" : "source-over";
             this.stage.update();
             this.attachMouseMove(this);
         };
